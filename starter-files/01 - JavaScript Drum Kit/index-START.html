@@ -76,6 +76,9 @@
   }
 
   const keys = document.querySelectorAll('.key');
+  // can't just do
+  // keys.addEventListener('transitionend');
+  // when have a Node list of elements must attach an event listener to each element
   keys.forEach(key => key.addEventListener('transitionend', removeTransition));
 
 </script>
