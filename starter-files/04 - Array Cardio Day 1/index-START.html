@@ -91,15 +91,58 @@
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
-    const category = document.querySelector('￼.mw-category');
+    // Get the DOM element that contains the list of Boulevards
+    // let category = document.querySelector('.mw-category');
+    // using const instead of let resulted in the variable not getting assigned
+    // in the Chrome dev tools console
+
+    // const links = category.querySelectorAll('a');
+    // you can call querySelector on any existing DOM element, including a variable
+    // we could have added additional selector a in the category variable above
+    // let category = document.querySelector('.mw-category a');
+    // this gives every link inside category element
+
+    // then convert this list of links to list of names
+    // then filter this list to include only names that include "de"
+
+    // the following will throw an error because the maps method does not exist
+    // for a Node List. links is a Node List not an array
+    // const de = links.map(link => link.textContent);
+
+    // convert const links from Node List to array
+    // 2 options: wrap it in Array.from OR use spread syntax.
+    // const links = [...category.querySelectorAll('a')];
+    // const links = Array.from(category.querySelectorAll('a'));
+
+    // SOLUTION
+    // let category = document.querySelector('.mw-category');
+    // const links = Array.from(category.querySelectorAll('a'));
+    // const de = links
+    //     .map(link => link.textContent)
+    //     .filter(streetName => streetName.includes('de'));
 
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    const alpha = people.sort((lastOne, nextOne) => {
+      const [aLast, aFirst] = lastOne.split(', ');
+      const [bLast, bFirst] = nextOne.split(', ');
+      return aLast > bLast ? 1 : -1;
+    });
+    console.log(alpha);
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    const transportation = data.reduce(function(obj, item) {
+      if (!obj[item]) obj[item] = 0;
+      obj[item]++;
+      return obj;
+    }, {});
+
+    console.log(transportation);
 
   </script>
 </body>
