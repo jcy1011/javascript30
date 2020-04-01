@@ -35,7 +35,7 @@
   // blob.json returns another promise, which we then call then on
   fetch(endpoint)
     .then(blob => blob.json())
-    // .then(data => console.log(data)) // test
+    // .then(data => console.log(data)) // test that will show array of all cities in console
     // .then(data => cities = data) // won't work bc trying to overwrite const
     // could change const cities to let cities OR push
     // .then(data => cities.push(data)) // gives you a nested array, no good
@@ -50,16 +50,26 @@
     });
   }
 
+  function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
   function displayMatches() {
     // console.log(this.value);
     const matchArray = findMatches(this.value, cities);
     // console.log(matchArray);
     const html = matchArray.map(place => {
+      const regex = new RegExp(this.value, 'gi');
+      const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`)
+      const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`)
       return `
-      <li>
-        <span class="name">${place.city}, ${place.state}</span>
-        <span class="population">${place.population}</span>`
-    })
+        <li>
+          <span class="name">${cityName}, ${stateName}</span>
+          <span class="population">${numberWithCommas(place.population)}</span>
+        </li>
+      `;
+    }).join(''); // map returns an array. we use joing bc we want a string
+    suggestions.innerHTML = html;
   }
 
   const searchInput = document.querySelector('.search');
