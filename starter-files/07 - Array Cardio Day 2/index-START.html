@@ -47,6 +47,7 @@
 
     console.log(comment);
 
+
     // Array.prototype.findIndex()
     // Find the comment with this ID
     // delete the comment with the ID of 823423
@@ -56,14 +57,16 @@
 
     // Options for deleting comment
 
-    // 1. Wes didn't go over this so I assume it's not beste practice
+    // 1. Wes didn't go over this so I assume it's not best practice
     // delete comments[1];
-    // Notice how the indexes go 0 2 3 4... weird
+    // Afterwards, notice how the indexes go 0 2 3 4... weird
 
     // 2. Use splice
     // comments.splice(commentIndex, 1);
     
     // 3. Create a new array of updated comments
+    // Redux people like this.
+    // Doesn't mutate. More in line with functional programming.
     const newComments = [
       ...comments.slice(0, commentIndex),
       ...comments.slice(commentIndex + 1)
